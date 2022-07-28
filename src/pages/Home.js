@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import ActorGrid from "../components/actor/ActorGrid";
 import MainPageLayout from "../components/MainPageLayout";
+import ShowGrid from "../components/show/ShowGrid";
 
 const Home = () => {
   const [input, setinput] = useState("");
@@ -31,16 +33,8 @@ const Home = () => {
       return <div>No Results</div>;
     }
     if (result != null && result.length > 0) {
-      if (result[0].show) {
-        return result.map((item) => {
-          return <div key={item.show.id}>{item.show.name}</div>;
-        });
-      } else {
-        return result.map((item) => {
-          return <div key={item.person.id}>{item.person.name}</div>;
-        });
+      return result[0].show?<ShowGrid data={result} />:<ActorGrid data={result} />
       }
-    }
     return null;
   };
   const checkRadio = (event) => {
