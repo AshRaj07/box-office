@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React from "react";
 import { useParams } from "react-router-dom";
 import Cast from "../components/show/Cast";
 import Details from "../components/show/Details";

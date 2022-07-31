@@ -10,15 +10,13 @@ const ShowGrid = ({ data }) => {
   return (
     <FlexGrid>
       {data.map(({ show }) => {
-        const isStarred = showsStarred.includes(show.id);
-        const onStarClick = useCallback(() => {
-          console.log("onstarclick");
+        const onStarClick = useCallback((showId,isStarred) => {
           if (!isStarred) {
-            dispatchStarred({ type: 'ADD', showId: show.id });
+            dispatchStarred({ type: 'ADD', showId });
           } else {
-            dispatchStarred({ type: 'REMOVE', showId: show.id });
+            dispatchStarred({ type: 'REMOVE', showId });
           }
-        },[isStarred, show.id]);
+        },[]);
         return (
           <ShowCard
             key={show.id}
@@ -27,7 +25,7 @@ const ShowGrid = ({ data }) => {
             name={show.name}
             summary={show.summary}
             onStarClick={onStarClick}
-            isStarred={isStarred}
+            isStarred={showsStarred.includes(show.id)}
           />
         );
       })}
