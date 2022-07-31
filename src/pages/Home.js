@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import ActorGrid from "../components/actor/ActorGrid";
+import CustomRadio from "../components/CustomRadio";
 import MainPageLayout from "../components/MainPageLayout";
 import ShowGrid from "../components/show/ShowGrid";
 import { useLastQuery } from "../misc/custom-hook";
+import {
+  RadioInputsWrapper,
+  SearchButtonWrapper,
+  SearchInput,
+} from "./Home.styled";
 
 const Home = () => {
   const [input, setinput] = useLastQuery();
@@ -34,8 +40,12 @@ const Home = () => {
       return <div>No Results</div>;
     }
     if (result != null && result.length > 0) {
-      return result[0].show?<ShowGrid data={result} />:<ActorGrid data={result} />
-      }
+      return result[0].show ? (
+        <ShowGrid data={result} />
+      ) : (
+        <ActorGrid data={result} />
+      );
+    }
     return null;
   };
   const checkRadio = (event) => {
@@ -43,40 +53,38 @@ const Home = () => {
   };
   return (
     <MainPageLayout>
-      <input
+      <SearchInput
         type={"text"}
         onChange={onChangeInput}
         onKeyDown={keySearch}
         value={input}
         placeholder={"Search Something"}
       />
-      <div>
-        <label htmlFor="show-radio">
-          Shows
-          <input
-            type="radio"
-            name=""
-            id="show-radio"
-            value={"shows"}
+      <RadioInputsWrapper>
+        <div>
+          <CustomRadio
+            label="Shows"
+            id="shows-search"
+            value="shows"
             onChange={checkRadio}
             checked={isShow}
           />
-        </label>
-        <label htmlFor="actor-radio">
-          Actors
-          <input
-            type="radio"
-            name=""
-            id="actor-radio"
-            value={"people"}
+        </div>
+        <div>
+          <CustomRadio
+            label="Actors"
+            id="actors-search"
+            value="people"
             onChange={checkRadio}
             checked={!isShow}
           />
-        </label>
-      </div>
-      <button type={"button"} onClick={onClickSearch}>
-        Search
-      </button>
+        </div>
+      </RadioInputsWrapper>
+      <SearchButtonWrapper>
+        <button type={"button"} onClick={onClickSearch}>
+          Search
+        </button>
+      </SearchButtonWrapper>
       {renderResult()}
     </MainPageLayout>
   );
