@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import ActorGrid from "../components/actor/ActorGrid";
 import MainPageLayout from "../components/MainPageLayout";
 import ShowGrid from "../components/show/ShowGrid";
+import { useLastQuery } from "../misc/custom-hook";
 
 const Home = () => {
-  const [input, setinput] = useState("");
+  const [input, setinput] = useLastQuery();
   const [result, setresult] = useState(null);
   const [search, setsearch] = useState("shows");
   const isShow = search === "shows";
